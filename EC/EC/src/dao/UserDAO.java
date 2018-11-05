@@ -248,12 +248,13 @@ public class UserDAO {
 	            // 結果表に格納されたレコードの内容を
 	            // Userインスタンスに設定し、ArrayListインスタンスに追加
 	            while (rs.next()) {
+	            	int id = rs.getInt("id");
 	                int userid = rs.getInt("user_id");
 	                Date  buyDate = rs.getDate("create_date");
 	                int deliveryMethodId = rs.getInt("delivery_method_id");
 	                String deliveryMethodName = rs.getString("name");
 	                int totalPrice = rs.getInt("total_Price") + rs.getInt("price");
-	                BuyDataBeans bdb = new BuyDataBeans(userid, buyDate, deliveryMethodId,deliveryMethodName,totalPrice);
+	                BuyDataBeans bdb = new BuyDataBeans(id,userid, buyDate, deliveryMethodId,deliveryMethodName,totalPrice);
 
 	                buyList.add(bdb);
 	            }

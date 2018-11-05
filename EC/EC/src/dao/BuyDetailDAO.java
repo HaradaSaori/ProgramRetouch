@@ -1,12 +1,14 @@
 package dao;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
 import base.DBManager;
+import beans.BuyDataBeans;
 import beans.BuyDetailDataBeans;
 import beans.ItemDataBeans;
 
@@ -130,5 +132,54 @@ public class BuyDetailDAO {
 			}
 		}
 	}
+
+	public BuyDataBeans userData(String id) {
+        Connection conn = null;
+        try {
+            // データベースへ接続
+            conn = DBManager.getConnection();
+
+    //SELECT文
+	String sql = "SELECT * FROM t_buy JOIN m_delivery_method ON t_buy.delivery_method_id = m_delivery_method.id JOIN t_buy_detail ON t_buy.id = t_buy_detail.buy_id WHERE buy_id = ?";
+
+	// SELECTを実行し、結果表（ResultSet）を取得
+	PreparedStatement pStmt = conn.prepareStatement(sql);
+	pStmt.setString(1, id);
+	ResultSet rs = pStmt.executeQuery();
+
+	BuyDataBeans bdb  = null;
+
+    while (rs.next()) {
+        int buyId = rs.getInt("buy_id");
+        int userId = rs.getInt("user_id");
+        Date buyDate = rs.getDate("create_date");
+        int deliveryMethodId = rs.getInt("delivery_method_id");
+        String  deliveryMethodName= rs.getString("name");
+        int totalPrice = rs.getInt("total_Price") + rs.getInt("price");
+
+        bdb = new BuyDataBeans(buyId,userId,buyDate,deliveryMethodId,deliveryMethodName,totalPrice);
+
+    }
+
+
+    pStmt.close();
+
+    return bdb;
+        } catch (SQLException e) {
+            e.printStackTrace();
+
+        } finally {
+            // データベース切断
+            if (conn != null) {
+                try {
+                    conn.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+
+                }
+            }
+        }
+        return null;
+    }
 
 }
