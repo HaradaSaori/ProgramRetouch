@@ -14,12 +14,23 @@ public class BuyDataBeans  implements Serializable {
 	private int id;
 	private int userId;
 	private int totalPrice;
-	private int delivertMethodId;
+	private int deliveryMethodId;
 	private Date buyDate;
 
 	private String deliveryMethodName;
 	private int deliveryMethodPrice;
 
+	// コンストラクタ
+	public BuyDataBeans() {
+	}
+
+	public BuyDataBeans(int userId, Date buyDate, int deliveryMethodId, String deliveryMethodName, int totalPrice) {
+		this.userId = userId;
+		this.buyDate = buyDate;
+		this.deliveryMethodId = deliveryMethodId;
+		this.deliveryMethodName= deliveryMethodName;
+		this.totalPrice = totalPrice;
+	}
 
 	public int getId() {
 		return id;
@@ -41,11 +52,11 @@ public class BuyDataBeans  implements Serializable {
 	}
 
 
-	public int getDelivertMethodId() {
-		return delivertMethodId;
+	public int getDeliveryMethodId() {
+		return deliveryMethodId;
 	}
-	public void setDelivertMethodId(int delivertMethodId) {
-		this.delivertMethodId = delivertMethodId;
+	public void setDeliveryMethodId(int delivertMethodId) {
+		this.deliveryMethodId = delivertMethodId;
 	}
 	public Date getBuyDate() {
 		return buyDate;
@@ -70,6 +81,5 @@ public class BuyDataBeans  implements Serializable {
 	public void setDeliveryMethodPrice(int deliveryMethodPrice) {
 		this.deliveryMethodPrice = deliveryMethodPrice;
 	}
-
 
 }

@@ -5,8 +5,12 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 import base.DBManager;
+import beans.BuyDataBeans;
 import beans.UserDataBeans;
 import ec.EcHelper;
 
@@ -221,5 +225,53 @@ public class UserDAO {
 		System.out.println("overlap check has been completed");
 		return isOverlap;
 	}
+
+	//購入履歴
+
+	   public List<BuyDataBeans> findAll(int userId) {
+	        Connection conn = null;
+	        List<BuyDataBeans> buyList = new ArrayList<BuyDataBeans>();
+
+	        try {
+	            // データベースへ接続
+	            conn = DBManager.getConnection();
+
+	            // SELECT文を準備
+	            String sql = "SELECT * FROM t_buy  INNER JOIN m_delivery_method ON t_buy.delivery_method_id = m_delivery_method.id WHERE user_id = ? ";
+
+	             // SELECTを実行し、結果表を取得
+	            PreparedStatement pStmt = conn.prepareStatement(sql);
+		    pStmt.setInt(1, userId);
+		    ResultSet rs = pStmt.executeQuery();
+
+
+	            // 結果表に格納されたレコードの内容を
+	            // Userインスタンスに設定し、ArrayListインスタンスに追加
+	            while (rs.next()) {
+	                int userid = rs.getInt("user_id");
+	                Date  buyDate = rs.getDate("create_date");
+	                int deliveryMethodId = rs.getInt("delivery_method_id");
+	                String deliveryMethodName = rs.getString("name");
+	                int totalPrice = rs.getInt("total_Price") + rs.getInt("price");
+	                BuyDataBeans bdb = new BuyDataBeans(userid, buyDate, deliveryMethodId,deliveryMethodName,totalPrice);
+
+	                buyList.add(bdb);
+	            }
+	        } catch (SQLException e) {
+	            e.printStackTrace();
+	            return null;
+	        } finally {
+	            // データベース切断
+	            if (conn != null) {
+	                try {
+	                    conn.close();
+	                } catch (SQLException e) {
+	                    e.printStackTrace();
+	                    return null;
+	                }
+	            }
+	        }
+	        return buyList;
+	    }
 
 }

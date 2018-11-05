@@ -42,8 +42,7 @@ public class BuyConfirm extends HttpServlet {
 			bdb.setDeliveryMethodName(userSelectDMB.getName());
 			bdb.setDeliveryMethodPrice(userSelectDMB.getPrice());
 			bdb.setTotalPrice(totalPrice + userSelectDMB.getPrice());
-//			bdb.setTotalPrice(totalPrice);
-			bdb.setDelivertMethodId(userSelectDMB.getId());
+			bdb.setDeliveryMethodId(userSelectDMB.getId());
 
 
 			//購入確定で利用
