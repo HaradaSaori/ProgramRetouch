@@ -24,9 +24,19 @@ public class BuyDataBeans  implements Serializable {
 	public BuyDataBeans() {
 	}
 
+
+
 	public BuyDataBeans(int id, int userId, Date buyDate, int deliveryMethodId, String deliveryMethodName, int totalPrice) {
 		this.id = id;
 		this.userId = userId;
+		this.buyDate = buyDate;
+		this.deliveryMethodId = deliveryMethodId;
+		this.deliveryMethodName= deliveryMethodName;
+		this.totalPrice = totalPrice;
+	}
+
+	public BuyDataBeans(int id, Date buyDate, int deliveryMethodId, String deliveryMethodName, int totalPrice) {
+		this.id = id;
 		this.buyDate = buyDate;
 		this.deliveryMethodId = deliveryMethodId;
 		this.deliveryMethodName= deliveryMethodName;

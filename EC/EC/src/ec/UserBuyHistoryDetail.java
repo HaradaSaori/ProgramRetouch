@@ -22,7 +22,7 @@ public class UserBuyHistoryDetail extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// URLからGETパラメータとしてIDを受け取る
-				String id = request.getParameter("id");
+				String id = request.getParameter("buy_id");
 
 				// 確認用：idをコンソールに出力
 			       System.out.println(id);
