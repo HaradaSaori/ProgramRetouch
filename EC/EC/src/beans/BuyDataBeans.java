@@ -93,4 +93,5 @@ public class BuyDataBeans  implements Serializable {
 		this.deliveryMethodPrice = deliveryMethodPrice;
 	}
 
+
 }

@@ -237,7 +237,7 @@ public class UserDAO {
 	            conn = DBManager.getConnection();
 
 	            // SELECT文を準備
-	            String sql = "SELECT * FROM t_buy  INNER JOIN m_delivery_method ON t_buy.delivery_method_id = m_delivery_method.id WHERE user_id = ? ";
+	            String sql = "SELECT * FROM t_buy  INNER JOIN m_delivery_method ON t_buy.delivery_method_id = m_delivery_method.id WHERE user_id = ? ORDER BY create_date DESC";
 
 	             // SELECTを実行し、結果表を取得
 	            PreparedStatement pStmt = conn.prepareStatement(sql);
@@ -250,10 +250,10 @@ public class UserDAO {
 	            while (rs.next()) {
 	            	int id = rs.getInt("id");
 	                int userid = rs.getInt("user_id");
-	                Date  buyDate = rs.getDate("create_date");
+	                Date  buyDate = rs.getTimestamp("create_date");
 	                int deliveryMethodId = rs.getInt("delivery_method_id");
 	                String deliveryMethodName = rs.getString("name");
-	                int totalPrice = rs.getInt("total_Price") + rs.getInt("price");
+	                int totalPrice = rs.getInt("total_Price");
 	                BuyDataBeans bdb = new BuyDataBeans(id,userid, buyDate, deliveryMethodId,deliveryMethodName,totalPrice);
 
 	                buyList.add(bdb);

@@ -62,6 +62,7 @@ public class UserDataBeans implements Serializable {
 		this.id = id;
 	}
 
+
 	/**
 	 * ユーザー情報更新時の必要情報をまとめてセットするための処理
 	 *

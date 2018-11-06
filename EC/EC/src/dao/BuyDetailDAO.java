@@ -1,11 +1,11 @@
 package dao;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 
 import base.DBManager;
 import beans.BuyDataBeans;
@@ -150,10 +150,10 @@ public class BuyDetailDAO {
 
 			while (rs.next()) {
 				int Id = rs.getInt("id");
-				Date buyDate = rs.getDate("create_date");
+				Date buyDate = rs.getTimestamp("create_date");
 				int deliveryMethodId = rs.getInt("delivery_method_id");
-				String deliveryMethodName = rs.getString("name");
-				int totalPrice = rs.getInt("total_price") + rs.getInt("price");
+				String deliveryMethodName = rs.getString("m_delivery_method.name");
+				int totalPrice = rs.getInt("total_price");
 
 				bdb = new BuyDataBeans(Id, buyDate, deliveryMethodId, deliveryMethodName, totalPrice);
 

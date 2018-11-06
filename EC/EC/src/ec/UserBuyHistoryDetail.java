@@ -1,6 +1,8 @@
 package ec;
 
 import java.io.IOException;
+import java.sql.SQLException;
+import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,6 +11,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import beans.BuyDataBeans;
+import beans.ItemDataBeans;
+import dao.BuyDAO;
 import dao.BuyDetailDAO;
 
 /**
@@ -34,6 +38,26 @@ public class UserBuyHistoryDetail extends HttpServlet {
 
 				   // ユーザ情報をリクエストスコープにセット
 				   request.setAttribute("buydata",buydata);
+
+
+				   try {
+				   ArrayList<ItemDataBeans> buyIDBList;
+
+					buyIDBList = BuyDetailDAO.getItemDataBeansListByBuyId(Integer.parseInt((id)));
+
+					request.setAttribute("buyIDBList", buyIDBList);
+
+					BuyDataBeans resultBDB = BuyDAO.getBuyDataBeansByBuyId(Integer.parseInt((id)));
+					request.setAttribute("resultBDB", resultBDB);
+
+
+				   } catch (NumberFormatException e) {
+					// TODO 自動生成された catch ブロック
+					e.printStackTrace();
+				} catch (SQLException e) {
+					// TODO 自動生成された catch ブロック
+					e.printStackTrace();
+				}
 
 		request.getRequestDispatcher(EcHelper.USER_BUY_HISTORY_DETAIL_PAGE).forward(request, response);
 
